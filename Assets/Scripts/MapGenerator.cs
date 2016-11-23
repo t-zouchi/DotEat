@@ -57,7 +57,7 @@ public class MapGenerator : MonoBehaviour {
   void generateMap(int[][] mapArray)
   {
     float x = 0;
-    float y = 0;
+    float y = 0.5f;
     float z = 0;
     float distance = 1.5f;
     for(int i = 0; i < mapArray.Length; i++)
