@@ -39,14 +39,7 @@ public class MapGenerator : MonoBehaviour {
         }
       }
     }
-    deBugger(mapArray);
-    int[][] testArr = new int[3][];
-    int[] testArr2 = new int[] { 0, 0, 0 };
-    int[] testArr3 = new int[] { 0, 1, 0 };
-    testArr[0] = testArr2;
-    testArr[1] = testArr3;
-    testArr[2] = testArr2;
-    //generateMap(testArr);
+//    deBugger(mapArray);
     generateMap(mapArray);
   }
 	
