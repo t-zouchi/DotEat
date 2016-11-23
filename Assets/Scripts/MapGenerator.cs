@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class MapGenerator : MonoBehaviour {
@@ -39,14 +40,89 @@ public class MapGenerator : MonoBehaviour {
         }
       }
     }
-//    deBugger(mapArray);
-    generateMap(mapArray);
+    //    deBugger(mapArray);
+
+    clustering(mapArray);
+    //generateMap(mapArray);
   }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+  void clustering(int[][] mapArray)
+  {
+    //広げるクラスを決める
+    //ランダムに座標を選ぶ
+    int random_x = 0;
+    int random_y = 0;
+    int target_x = 0;
+    int target_y = 0;
+    int clusternums = 0;
+    int direction = 0; //0:上　1: 右　2:下　3:左
+    clusternums = clusterCount(mapArray);
+    Debug.Log(clusternums);
+
+    //クラスタが1個になるまで繰り返す
+    while(clusternums > 1)
+    {
+      random_x = Random.Range(1, 30);
+      random_y = Random.Range(1, 30);
+      //
+      if (mapArray[random_y][random_x] == 0)
+      {
+        //ランダムに選んだ場所がブロックの場合やり直す
+        continue;
+      }
+      else
+      {
+        //壊す場所を決める
+        //上下左右どっちに進むか決める
+        direction = Random.Range(1, 4);
+        if(direction == 0)
+        {
+          target_x = random_x;
+          target_y = random_y + 1;
+        }else if(direction == 1)
+        {
+          target_x = random_x + 1;
+          target_y = random_y;
+        }else if(direction == 2)
+        {
+          target_x = random_x;
+          target_y = random_y - 1;
+        }else if(direction == 3)
+        {
+          target_x = random_x - 1;
+          target_y = random_y;
+        }
+
+        //壊せれるかチェックする
+
+      }
+
+      clusternums = clusterCount(mapArray);
+    }
+
+  }
+
+  //クラスタ数を数える関数
+  int clusterCount(int[][] mapArray)
+  {
+    Dictionary<int, int> clusterDict = new Dictionary<int, int>();
+    for(int i = 0; i < mapArray.Length; i++)
+    {
+      for (int j = 0; j < mapArray.Length; j++)
+      {
+        if(mapArray[i][j] != 0 && !clusterDict.ContainsKey(mapArray[i][j]))
+        {
+          clusterDict.Add(mapArray[i][j], 0);
+        }
+      }
+    }
+    return clusterDict.Keys.Count;
+  }
 
   void generateMap(int[][] mapArray)
   {
