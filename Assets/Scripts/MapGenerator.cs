@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MapGenerator : MonoBehaviour {
 
+  public GameObject Cube;
 	// Use this for initialization
 	void Start () {
     //マップの初期化
@@ -38,12 +39,42 @@ public class MapGenerator : MonoBehaviour {
       }
     }
     deBugger(mapArray);
+    int[][] testArr = new int[3][];
+    int[] testArr2 = new int[] { 0, 0, 0 };
+    int[] testArr3 = new int[] { 0, 1, 0 };
+    testArr[0] = testArr2;
+    testArr[1] = testArr3;
+    testArr[2] = testArr2;
+    //generateMap(testArr);
+    generateMap(mapArray);
   }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+  void generateMap(int[][] mapArray)
+  {
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    float distance = 1.5f;
+    for(int i = 0; i < mapArray.Length; i++)
+    {
+      for(int j = 0; j < mapArray[i].Length; j++)
+      {
+        x = distance * j;
+        z = distance * i;
+        Debug.Log("x = " + x + "z = " + z); 
+        transform.position = new Vector3(x, y, z);
+        if (mapArray[i][j] == 0f)
+        {
+          Instantiate(Cube, transform.position, transform.rotation);
+        }
+      }
+    }
+  }
 
   //プリントデバッグするためのやつ
   void deBugger(int[][] mapArray)
@@ -59,4 +90,5 @@ public class MapGenerator : MonoBehaviour {
     }
     Debug.Log(str);
   }
+
 }
