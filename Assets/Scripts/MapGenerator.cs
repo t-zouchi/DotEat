@@ -4,6 +4,7 @@ using System.Collections;
 public class MapGenerator : MonoBehaviour {
 
   public GameObject Cube;
+  public GameObject Sphere;
 	// Use this for initialization
 	void Start () {
     //マップの初期化
@@ -66,11 +67,14 @@ public class MapGenerator : MonoBehaviour {
       {
         x = distance * j;
         z = distance * i;
-        Debug.Log("x = " + x + "z = " + z); 
         transform.position = new Vector3(x, y, z);
         if (mapArray[i][j] == 0f)
         {
           Instantiate(Cube, transform.position, transform.rotation);
+        }
+        else
+        {
+          Instantiate(Sphere, transform.position, transform.rotation);
         }
       }
     }
