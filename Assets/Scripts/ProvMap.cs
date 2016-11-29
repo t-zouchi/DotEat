@@ -37,6 +37,7 @@ public class ProvMap : MonoBehaviour {
   int[][] mapArray = new int[31][] ;
   void Awake()
   {
+    int rand = Random.Range(0, 9);
     mapArray[0] = (int[])defaultArray00.Clone();
     mapArray[1] = (int[])defaultArray01.Clone();
     mapArray[2] = (int[])defaultArray02.Clone();
@@ -68,7 +69,42 @@ public class ProvMap : MonoBehaviour {
     mapArray[28] = (int[])defaultArray28.Clone();
     mapArray[29] = (int[])defaultArray29.Clone();
     mapArray[30] = (int[])defaultArray30.Clone();
- 
+
+    switch(rand){
+      case 0:
+        mapArray[0][0] = 999;
+        break;
+      case 1:
+        mapArray[30][0] = 999;
+        break;
+      case 2:
+        mapArray[0][30] = 999;
+        break;
+      case 3:
+        mapArray[30][30] = 999;
+        break;
+      case 4:
+        mapArray[15][0] = 999;
+        break;
+      case 5:
+        mapArray[0][15] = 999;
+        break;
+      case 6:
+        mapArray[15][30] = 999;
+        break;
+      case 7:
+        mapArray[30][15] = 999;
+        break;
+      case 8:
+        mapArray[5][0] = 999;
+        break;
+      case 9:
+        mapArray[0][25] = 999;
+        break;
+      default:
+        mapArray[0][0] = 999;
+        break;
+    }
   }
   
   public int[][] getProvMap()

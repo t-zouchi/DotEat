@@ -7,6 +7,7 @@ public class MapGenerator : MonoBehaviour {
 
   public GameObject Cube;
   public GameObject Sphere;
+  public GameObject Player;
   GameObject Generator;
 	// Use this for initialization
 	void Start () {
@@ -147,6 +148,7 @@ public class MapGenerator : MonoBehaviour {
   {
     float x = 0;
     float y = 0.5f;
+    float player_y = 3.5f;
     float z = 0;
     float distance = 1.5f;
     for(int i = 0; i < mapArray.Length; i++)
@@ -159,6 +161,12 @@ public class MapGenerator : MonoBehaviour {
         if (mapArray[i][j] == 0f)
         {
           Instantiate(Cube, transform.position, transform.rotation);
+        }
+        else if(mapArray[i][j] == 999f)
+        {
+          Instantiate(Cube, transform.position, transform.rotation);
+          transform.position = new Vector3(x, player_y, z);
+          Instantiate(Player, transform.position, transform.localRotation);
         }
         else
         {
