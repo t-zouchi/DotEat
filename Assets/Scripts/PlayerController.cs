@@ -26,22 +26,23 @@ public class PlayerController : MonoBehaviour {
     float x = 0.0f;
     float y = 0.0f;
     float z = 0.0f;
+    float speed = 1f;
 
     if (Input.GetKey(KeyCode.D))
     {
-      x += 1.0f;
+      x += speed;
     }
     if (Input.GetKey(KeyCode.A))
     {
-      x -= 1.0f;
+      x -= speed;
     }
     if (Input.GetKey(KeyCode.W))
     {
-      z += 1.0f;
+      z += speed;
     }
     if (Input.GetKey(KeyCode.S))
     {
-      z -= 1.0f;
+      z -= speed;
     }
 
     if (Input.GetButtonDown("Jump"))
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour {
     {
       if ( y >= 0)
       {
-        y = y * 0.1f ;
+        y = y * 0.01f ;
       }
     }
 
