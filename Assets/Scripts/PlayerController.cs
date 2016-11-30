@@ -4,9 +4,12 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
+  float speed = 1f;
+  float counter = 0f;
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
+    counter = 0f;
   }
 
   // Update is called once per frame
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     float x = 0.0f;
     float y = 0.0f;
     float z = 0.0f;
-    float speed = 1f;
+  
 
     if (Input.GetKey(KeyCode.D))
     {
@@ -59,4 +62,19 @@ public class PlayerController : MonoBehaviour {
 
     m_Rigidbody.velocity = z * transform.forward +y * transform.up + x * transform.right;
   }
+
+  void OnCollisionEnter(Collision collision)
+  {
+    if (collision.gameObject.tag == "Dot")
+    {
+      Debug.Log("hit!!");
+      counter++;
+      if(counter % 10 == 0)
+      {
+        speed++;
+      }
+      Destroy(collision.gameObject);
+    }
+  }
+
 }
