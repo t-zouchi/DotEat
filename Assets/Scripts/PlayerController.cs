@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour {
   Rigidbody m_Rigidbody;
   float speed = 1f;
   float counter = 0f;
+  int upCount = 0;
+  int downCount = 0;
+  bool changeRotateFlg = false;
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
@@ -23,6 +26,36 @@ public class PlayerController : MonoBehaviour {
     {
       transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));
     }
+    if (Input.GetKey(KeyCode.UpArrow))
+    {
+      if(transform.localEulerAngles.x == 0 || transform.localEulerAngles.x  > 345f)
+      {
+        transform.Rotate(new Vector3(-1.0f, 0.0f, 0.0f));
+      }
+      changeRotateFlg = true;
+    }
+    if (Input.GetKey(KeyCode.DownArrow))
+    {
+      if (transform.localEulerAngles.x < 15f)
+      {
+        transform.Rotate(new Vector3(1.0f, 0.0f, 0.0f));
+      }
+
+      changeRotateFlg = true;
+    }
+    if (changeRotateFlg)
+    {
+      if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+      {
+      }
+      else
+      {
+        transform.Rotate(new Vector3(-transform.localEulerAngles.x, 0.0f, -transform.localEulerAngles.z));
+        changeRotateFlg = false;
+
+      }
+    }
+
 
     // WASDで移動する
     //スペースでジャンプする
