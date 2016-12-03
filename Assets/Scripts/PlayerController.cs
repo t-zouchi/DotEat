@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
   int upCount = 0;
   int downCount = 0;
   bool changeRotateFlg = false;
+  public GameObject Explosion;
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
@@ -100,11 +101,21 @@ public class PlayerController : MonoBehaviour {
   {
     if (collision.gameObject.tag == "Dot")
     {
-      Debug.Log("hit!!");
       counter++;
       if(counter % 10 == 0)
       {
         speed++;
+      }
+      Destroy(collision.gameObject);
+    }
+
+    if (collision.gameObject.tag == "Bom")
+    {
+
+      for (int aIndex = 0; aIndex < collision.contacts.Length; ++aIndex)
+      {
+        Debug.Log(collision.contacts[aIndex].point);
+        Instantiate(Explosion, m_Rigidbody.transform.position, Quaternion.identity);
       }
       Destroy(collision.gameObject);
     }
