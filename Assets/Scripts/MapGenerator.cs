@@ -8,6 +8,8 @@ public class MapGenerator : MonoBehaviour {
   public GameObject Cube;
   public GameObject Sphere;
   public GameObject Player;
+  public GameObject Bom;
+
   GameObject Generator;
 	// Use this for initialization
 	void Start () {
@@ -162,7 +164,11 @@ public class MapGenerator : MonoBehaviour {
         {
           Instantiate(Cube, transform.position, transform.rotation);
         }
-        else if(mapArray[i][j] == 999f)
+        else if (mapArray[i][j] == 998f)
+        {
+          Instantiate(Bom, transform.position, transform.rotation);
+        }
+        else if (mapArray[i][j] == 999f)
         {
           Instantiate(Cube, transform.position, transform.rotation);
           transform.position = new Vector3(x, player_y, z);
