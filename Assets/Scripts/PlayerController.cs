@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 
@@ -7,7 +8,6 @@ public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
   float speed = 3f;
-  float counter = 0f;
   int upCount = 0;
   int downCount = 0;
   bool changeRotateFlg = false;
@@ -16,16 +16,16 @@ public class PlayerController : MonoBehaviour {
   PointManager pointManager;
   int point;
   int life;
+  int level;
 
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
     mapGenerator = GameObject.Find("MapGenerator");
     pointManager = mapGenerator.GetComponent<PointManager>();
-    counter = 0f;
     life = 3;
     point = 0;
-
+    level = 1;
   }
 
   // Update is called once per frame
@@ -113,9 +113,21 @@ public class PlayerController : MonoBehaviour {
   {
     if (collision.gameObject.tag == "Dot")
     {
-      counter++;
+
       point++;
-      pointManager.pointUpdate(point);
+      if(point == level * 50)
+      {
+        level++;
+        pointManager.saveLevel(level);
+        //オブジェクト全部消してgenerateMapする
+        //pointのリセットとかも一緒にやる
+      }
+      else
+      {
+        pointManager.pointUpdate(point, level);
+      }
+
+
       Destroy(collision.gameObject);
     }
 
@@ -127,7 +139,16 @@ public class PlayerController : MonoBehaviour {
         Instantiate(Explosion, m_Rigidbody.transform.position, Quaternion.identity);
       }
       life--;
-      pointManager.lifeUpdate(life);
+      if(life > 0)
+      {
+        pointManager.lifeUpdate(life);
+      }
+      else
+      {
+        //ゲームオーバー
+        SceneManager.LoadScene("GameOver");
+      }
+
        Destroy(collision.gameObject);
     }
   }

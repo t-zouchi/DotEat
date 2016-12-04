@@ -10,11 +10,13 @@ public class PointManager : MonoBehaviour {
 
   int life;
   int point;
+  int level;
 
   // Use this for initialization
   void Start () {
     life = 3;
     point = 0;
+    level = 1;
     foreach (Transform child in canvas.transform)
     {
       if (child.name == "Point")
@@ -32,10 +34,15 @@ public class PointManager : MonoBehaviour {
     }
   }
 
-  // Update is called once per frame
-  void Update () {
-	
-	}
+  public void saveLevel(int currentlevel)
+  {
+    level = currentlevel;
+  }
+
+  public int getLevel()
+  {
+    return level;
+  }
 
   public void lifeUpdate(int life)
   {
@@ -51,7 +58,7 @@ public class PointManager : MonoBehaviour {
     }
   }
 
-  public void pointUpdate(int point)
+  public void pointUpdate(int point, int level)
   {
     foreach (Transform child in canvas.transform)
     {
@@ -59,7 +66,7 @@ public class PointManager : MonoBehaviour {
       {
         pointText = child.gameObject.GetComponent<Text>();
         pointText.transform.SetParent(canvas.transform, false);
-        pointText.text = "Point : " + point;
+        pointText.text = "Point : " + point + " / " + level * 50;
       }
     }
 
