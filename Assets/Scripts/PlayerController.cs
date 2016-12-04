@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
 
 public class PlayerController : MonoBehaviour {
 
@@ -10,10 +12,20 @@ public class PlayerController : MonoBehaviour {
   int downCount = 0;
   bool changeRotateFlg = false;
   public GameObject Explosion;
+  public GameObject mapGenerator;
+  PointManager pointManager;
+  int point;
+  int life;
+
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
+    mapGenerator = GameObject.Find("MapGenerator");
+    pointManager = mapGenerator.GetComponent<PointManager>();
     counter = 0f;
+    life = 3;
+    point = 0;
+
   }
 
   // Update is called once per frame
@@ -102,10 +114,8 @@ public class PlayerController : MonoBehaviour {
     if (collision.gameObject.tag == "Dot")
     {
       counter++;
-      if(counter % 10 == 0)
-      {
-        //speed++;
-      }
+      point++;
+      pointManager.pointUpdate(point);
       Destroy(collision.gameObject);
     }
 
@@ -116,7 +126,9 @@ public class PlayerController : MonoBehaviour {
       {
         Instantiate(Explosion, m_Rigidbody.transform.position, Quaternion.identity);
       }
-      Destroy(collision.gameObject);
+      life--;
+      pointManager.lifeUpdate(life);
+       Destroy(collision.gameObject);
     }
   }
 
