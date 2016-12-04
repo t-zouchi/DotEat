@@ -61,8 +61,8 @@ public class MapGenerator : MonoBehaviour {
     //generateMap(mapArray
     defaultMap = provMap.getProvMap();
     generateMap(defaultMap, 0);
-    //defaultMap = provMap2.getProvMap();
-    //generateMap(defaultMap, 1);
+    defaultMap = provMap2.getProvMap();
+    generateMap(defaultMap, 1);
     //defaultMap = provMap.getProvMap();
     //generateMap(defaultMap, 2);
     //defaultMap = provMap.getProvMap();
