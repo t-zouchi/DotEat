@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
-  float speed = 1f;
+  float speed = 3f;
   float counter = 0f;
   int upCount = 0;
   int downCount = 0;
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour {
       counter++;
       if(counter % 10 == 0)
       {
-        speed++;
+        //speed++;
       }
       Destroy(collision.gameObject);
     }
