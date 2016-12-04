@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     }
     if (Input.GetKey(KeyCode.UpArrow))
     {
-      if(transform.localEulerAngles.x == 0 || transform.localEulerAngles.x  > 345f)
+      if((-6f<= transform.localEulerAngles.x && transform.localEulerAngles.x < 5f )|| transform.localEulerAngles.x  > 345f)
       {
         transform.Rotate(new Vector3(-1.0f, 0.0f, 0.0f));
       }
@@ -114,7 +114,6 @@ public class PlayerController : MonoBehaviour {
 
       for (int aIndex = 0; aIndex < collision.contacts.Length; ++aIndex)
       {
-        Debug.Log(collision.contacts[aIndex].point);
         Instantiate(Explosion, m_Rigidbody.transform.position, Quaternion.identity);
       }
       Destroy(collision.gameObject);

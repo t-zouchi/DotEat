@@ -9,6 +9,7 @@ public class MapGenerator : MonoBehaviour {
   public GameObject Sphere;
   public GameObject Player;
   public GameObject Bom;
+  public GameObject Center;
 
   GameObject Generator;
 	// Use this for initialization
@@ -65,6 +66,44 @@ public class MapGenerator : MonoBehaviour {
 	void Update () {
 	
 	}
+
+  void generateMap(int[][] mapArray)
+  {
+    float x = 0;
+    float y = 0.5f;
+    float player_y = 3.5f;
+    float z = 0;
+    float distance = 1.5f;
+    for (int i = 0; i < mapArray.Length; i++)
+    {
+      for (int j = 0; j < mapArray[i].Length; j++)
+      {
+        x = distance * j;
+        z = distance * i;
+        transform.position = new Vector3(x, y, z);
+        if (mapArray[i][j] == 0f)
+        {
+          Instantiate(Cube, transform.position, transform.rotation);
+        }
+        else if (mapArray[i][j] == 998f)
+        {
+          Instantiate(Bom, transform.position, transform.rotation);
+        }
+        else if (mapArray[i][j] == 999f)
+        {
+          Instantiate(Cube, transform.position, transform.rotation);
+          transform.position = new Vector3(x, player_y, z);
+          Instantiate(Player, transform.position, transform.localRotation);
+          GameObject currentPlayer = GameObject.Find("Player(Clone)");
+          currentPlayer.transform.LookAt(Center.transform.position);
+        }
+        else
+        {
+          Instantiate(Sphere, transform.position, transform.rotation);
+        }
+      }
+    }
+  }
 
   void clustering(int[][] mapArray)
   {
@@ -146,41 +185,7 @@ public class MapGenerator : MonoBehaviour {
     return clusterDict.Keys.Count;
   }
 
-  void generateMap(int[][] mapArray)
-  {
-    float x = 0;
-    float y = 0.5f;
-    float player_y = 3.5f;
-    float z = 0;
-    float distance = 1.5f;
-    for(int i = 0; i < mapArray.Length; i++)
-    {
-      for(int j = 0; j < mapArray[i].Length; j++)
-      {
-        x = distance * j;
-        z = distance * i;
-        transform.position = new Vector3(x, y, z);
-        if (mapArray[i][j] == 0f)
-        {
-          Instantiate(Cube, transform.position, transform.rotation);
-        }
-        else if (mapArray[i][j] == 998f)
-        {
-          Instantiate(Bom, transform.position, transform.rotation);
-        }
-        else if (mapArray[i][j] == 999f)
-        {
-          Instantiate(Cube, transform.position, transform.rotation);
-          transform.position = new Vector3(x, player_y, z);
-          Instantiate(Player, transform.position, transform.localRotation);
-        }
-        else
-        {
-          Instantiate(Sphere, transform.position, transform.rotation);
-        }
-      }
-    }
-  }
+  
 
   //壊すブロックを決める関数
   int[] getTargets(int[][] mapArray, int direction, int random_x, int random_y)
