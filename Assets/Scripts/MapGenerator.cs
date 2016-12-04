@@ -19,6 +19,7 @@ public class MapGenerator : MonoBehaviour {
     // [偶数,偶数],[奇数,奇数]にクラスタ番号を振っていく
     Generator = GameObject.Find("MapGenerator");
     ProvMap provMap = Generator.GetComponent<ProvMap>();
+    ProvMap2 provMap2 = Generator.GetComponent<ProvMap2>();
     int[][] mapArray = new int[31][];
     int[][] defaultMap = new int[31][];
     int[] defaultArray = new int[31] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -59,18 +60,28 @@ public class MapGenerator : MonoBehaviour {
     //clustering(mapArray);
     //generateMap(mapArray
     defaultMap = provMap.getProvMap();
-    generateMap(defaultMap);
+    generateMap(defaultMap, 0);
+    //defaultMap = provMap2.getProvMap();
+    //generateMap(defaultMap, 1);
+    //defaultMap = provMap.getProvMap();
+    //generateMap(defaultMap, 2);
+    //defaultMap = provMap.getProvMap();
+    //generateMap(defaultMap, 3);
+    //defaultMap = provMap.getProvMap();
+    //generateMap(defaultMap, 4);
+
+
   }
-	
-	// Update is called once per frame
-	void Update () {
+
+  // Update is called once per frame
+  void Update () {
 	
 	}
 
-  void generateMap(int[][] mapArray)
+  void generateMap(int[][] mapArray, int layer)
   {
     float x = 0;
-    float y = 0.5f;
+    float y = 0.5f + layer * 1.5f;
     float player_y = 3.5f;
     float z = 0;
     float distance = 1.5f;
@@ -85,11 +96,15 @@ public class MapGenerator : MonoBehaviour {
         {
           Instantiate(Cube, transform.position, transform.rotation);
         }
-        else if (mapArray[i][j] == 998f)
+        else if(mapArray[i][j] == 1f)
+        {
+          Instantiate(Sphere, transform.position, transform.rotation);
+        }
+        else if (mapArray[i][j] == 2f)
         {
           Instantiate(Bom, transform.position, transform.rotation);
         }
-        else if (mapArray[i][j] == 999f)
+        else if (mapArray[i][j] == 3f)
         {
           Instantiate(Cube, transform.position, transform.rotation);
           transform.position = new Vector3(x, player_y, z);
@@ -99,7 +114,7 @@ public class MapGenerator : MonoBehaviour {
         }
         else
         {
-          Instantiate(Sphere, transform.position, transform.rotation);
+          //なにもつくらない
         }
       }
     }
