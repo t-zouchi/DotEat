@@ -23,7 +23,7 @@ public class PointManager : MonoBehaviour {
       {
         pointText = child.gameObject.GetComponent<Text>();
         pointText.transform.SetParent(canvas.transform, false);
-        pointText.text = "Point : " + point ;
+        pointText.text = "Point : " + point  + " / " + level * 50;
       }
       if (child.name == "Life")
       {
