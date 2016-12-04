@@ -21,6 +21,7 @@ public class MapGenerator : MonoBehaviour {
     ProvMap provMap = Generator.GetComponent<ProvMap>();
     ProvMap2 provMap2 = Generator.GetComponent<ProvMap2>();
     ProvMap3 provMap3 = Generator.GetComponent<ProvMap3>();
+    ProvMap4 provMap4 = Generator.GetComponent<ProvMap4>();
     int[][] mapArray = new int[31][];
     int[][] defaultMap = new int[31][];
     int[] defaultArray = new int[31] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -66,8 +67,8 @@ public class MapGenerator : MonoBehaviour {
     generateMap(defaultMap, 1);
     defaultMap = provMap3.getProvMap();
     generateMap(defaultMap, 2);
-    //defaultMap = provMap.getProvMap();
-    //generateMap(defaultMap, 3);
+    defaultMap = provMap4.getProvMap();
+    generateMap(defaultMap, 3);
     //defaultMap = provMap.getProvMap();
     //generateMap(defaultMap, 4);
 
