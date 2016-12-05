@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour {
     pointManager = mapGenerator.GetComponent<PointManager>();
     life = 3;
     point = 0;
-    level = 1;
+    level = LevelManager.getLevel();
+    pointManager.pointUpdate(point, level);
   }
 
   // Update is called once per frame
@@ -118,16 +119,13 @@ public class PlayerController : MonoBehaviour {
       if(point == level * 50)
       {
         level++;
-        pointManager.saveLevel(level);
-        //オブジェクト全部消してgenerateMapする
-        //pointのリセットとかも一緒にやる
+        LevelManager.levelUp();
+        SceneManager.LoadScene("Main");        
       }
       else
       {
         pointManager.pointUpdate(point, level);
       }
-
-
       Destroy(collision.gameObject);
     }
 
@@ -146,6 +144,7 @@ public class PlayerController : MonoBehaviour {
       else
       {
         //ゲームオーバー
+        LevelManager.levelReset();
         SceneManager.LoadScene("GameOver");
       }
 
