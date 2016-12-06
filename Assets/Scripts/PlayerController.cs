@@ -7,7 +7,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
-  float speed = 3f;
+  float speed = 4f;
   int upCount = 0;
   int downCount = 0;
   bool changeRotateFlg = false;
