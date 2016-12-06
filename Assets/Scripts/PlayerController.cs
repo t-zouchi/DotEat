@@ -1,19 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
+
 
 public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
   float speed = 3f;
-  float counter = 0f;
   int upCount = 0;
   int downCount = 0;
   bool changeRotateFlg = false;
   public GameObject Explosion;
+  public GameObject mapGenerator;
+  PointManager pointManager;
+  int point;
+  int life;
+  int level;
+
   // Use this for initialization
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
-    counter = 0f;
+    mapGenerator = GameObject.Find("MapGenerator");
+    pointManager = mapGenerator.GetComponent<PointManager>();
+    life = 3;
+    point = 0;
+    level = LevelManager.getLevel();
+    pointManager.pointUpdate(point, level);
   }
 
   // Update is called once per frame
@@ -101,10 +114,17 @@ public class PlayerController : MonoBehaviour {
   {
     if (collision.gameObject.tag == "Dot")
     {
-      counter++;
-      if(counter % 10 == 0)
+
+      point++;
+      if(point == level * 50)
       {
-        //speed++;
+        level++;
+        LevelManager.levelUp();
+        SceneManager.LoadScene("Main");        
+      }
+      else
+      {
+        pointManager.pointUpdate(point, level);
       }
       Destroy(collision.gameObject);
     }
@@ -116,7 +136,19 @@ public class PlayerController : MonoBehaviour {
       {
         Instantiate(Explosion, m_Rigidbody.transform.position, Quaternion.identity);
       }
-      Destroy(collision.gameObject);
+      life--;
+      if(life > 0)
+      {
+        pointManager.lifeUpdate(life);
+      }
+      else
+      {
+        //ゲームオーバー
+        LevelManager.levelReset();
+        SceneManager.LoadScene("GameOver");
+      }
+
+       Destroy(collision.gameObject);
     }
   }
 
