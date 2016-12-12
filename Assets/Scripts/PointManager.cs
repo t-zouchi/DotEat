@@ -12,7 +12,6 @@ public class PointManager : MonoBehaviour {
   int point;
   int level;
 
-  // Use this for initialization
   void Start () {
     life = 3;
     point = 0;
@@ -69,6 +68,5 @@ public class PointManager : MonoBehaviour {
         pointText.text = "Point : " + point + " / " + level * 50;
       }
     }
-
   }
 }
