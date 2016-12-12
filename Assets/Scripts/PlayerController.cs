@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
-
 
 public class PlayerController : MonoBehaviour {
 
@@ -17,8 +14,7 @@ public class PlayerController : MonoBehaviour {
   int point;
   int life;
   int level;
-
-  // Use this for initialization
+  
   void Start () {
     m_Rigidbody = GetComponent<Rigidbody>();
     mapGenerator = GameObject.Find("MapGenerator");
@@ -29,9 +25,8 @@ public class PlayerController : MonoBehaviour {
     pointManager.pointUpdate(point, level);
   }
 
-  // Update is called once per frame
   void Update() {
-    // 十字キーで首を左右に回す
+
     if (Input.GetKey(KeyCode.RightArrow))
     {
       transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
@@ -70,9 +65,6 @@ public class PlayerController : MonoBehaviour {
       }
     }
 
-
-    // WASDで移動する
-    //スペースでジャンプする
     float x = 0.0f;
     float y = 0.0f;
     float z = 0.0f;
@@ -97,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 
     if (Input.GetButtonDown("Jump"))
     {
-      y += 20f; //ジャンプするベクトルの代入
+      y += 20f; 
     }
     else
     {
@@ -143,11 +135,9 @@ public class PlayerController : MonoBehaviour {
       }
       else
       {
-        //ゲームオーバー
         LevelManager.levelReset();
         SceneManager.LoadScene("GameOver");
       }
-
        Destroy(collision.gameObject);
     }
   }

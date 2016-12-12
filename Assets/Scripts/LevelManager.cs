@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
   static int level;
-	// Use this for initialization
+
 	void Start () {
     levelReset();
 	}
