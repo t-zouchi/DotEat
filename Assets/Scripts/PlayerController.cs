@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
 
   Rigidbody m_Rigidbody;
-  float speed = 4f;
+  float speed = 6f;
   int upCount = 0;
   int downCount = 0;
   bool changeRotateFlg = false;
